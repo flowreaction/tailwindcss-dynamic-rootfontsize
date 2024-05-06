@@ -1,0 +1,113 @@
+{
+  "name": "tailwindcss-dynamic-rootfontsize",
+  "displayName": "TailwindCSS Dynamic rootFontSize",
+  "description": "A simple plugin that allows you to change the root font size of your tailwindcss project dynamically based on the currently open file.",
+  "version": "0.0.1",
+  "author": "Florian Bopp <florian@bopp.tech>",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "tailwind",
+    "tailwindcss",
+    "rootFontSize",
+    "dynamic"
+  ],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "repository": {"directory": "tailwindcss-dynamic-rootfontsize", "type": "git", "url": "https://www.github.com/flowreaction/tailwindcss-dynamic-rootfontsize"},
+  "contributes": {
+    "commands": [
+      {
+        "command": "tailwindcss-dynamic-rootFontSize.restartPlugin",
+        "title": "TailwindCss Dynamic RootFontSize: Restart Plugin"
+      },
+      {
+        "command": "tailwindcss-dynamic-rootFontSize.enable",
+        "title": "TailwindCss Dynamic RootFontSize: Enable"
+      },{
+        "command": "tailwindcss-dynamic-rootFontSize.disable",
+        "title": "TailwindCss Dynamic RootFontSize: Disable"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "tailwindcss-dynamic-rootFontSize",
+      "properties": {
+        "tailwindcss-dynamic-rootFontSize.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/Disable tailwindcss-dynamic-rootFontSize"
+        },
+        "tailwindcss-dynamic-rootFontSize.mappings": {
+          "type": "object",
+          "description": "Custom mappings for root font size",
+          "patternProperties": {
+            "^[0-9]+$": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "description": "GlobPattern"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "GlobPattern"
+                  },
+                  "description": "Array of GlobPattern"
+                }
+              ]
+            }
+          },
+          "default": {}
+        },
+        "tailwindcss-dynamic-rootFontSize.logLevel":{
+          "title": "TailwindCss Dynamic RootFontSize: Set Log Level",
+              "type": "string",
+              "enum": ["error", "warn", "info", "debug"],
+              "description": "Log level",
+              "default": "info"
+        }
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "package.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"],
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.88.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "@vscode/test-cli": "^0.0.8",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.57.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "glob": "^10.3.12"
+  }
+}
